@@ -77,10 +77,17 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 15px;
+    padding: 10px 50px 10px 15px;
     background: #a8e6cf;
     /* セカンダリミント */
     position: relative;
+}
+
+.month-navigator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0 auto;
 }
 
 .calendar-header h2 {
@@ -479,5 +486,41 @@ select {
 @media (max-width: 480px) {
     .container {
         width: 100%;
+    }
+
+    /* カレンダーヘッダーの調整 */
+    .calendar-header {
+        padding: 10px 38px 10px 8px;
+        gap: 10px;
+    }
+
+    .month-navigator {
+        gap: 6px;
+        margin: 0 auto;
+    }
+
+    .calendar-header h2 {
+        font-size: 0.95rem;
+    }
+
+    .btn-nav {
+        padding: 4px 6px;
+        font-size: 0.85rem;
+    }
+
+    /* 支払い方法ボタン - モバイル */
+    .btn-settings {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 4px 6px;
+        font-size: 0.6rem;
+        border-radius: 10px;
+        border-width: 1px;
+    }
+
+    .btn-settings:hover {
+        transform: translateY(-50%) scale(1.02);
     }
 }
