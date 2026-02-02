@@ -556,24 +556,34 @@ select {
     .btn-settings {
         position: static;
         transform: none;
-        padding: 6px;
-        font-size: 1.1rem;
-        width: 36px;
-        height: 36px;
+        padding: 8px;
+        font-size: 1.2rem;
+        width: 42px;
+        height: 42px;
+        -webkit-tap-highlight-color: transparent;
     }
 
-    .btn-settings:hover {
-        transform: scale(1.1);
+    .btn-settings:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.6);
     }
 
     .settings-dropdown {
-        right: 0;
-        top: calc(100% + 6px);
-        min-width: 160px;
+        right: -5px;
+        left: auto;
+        top: calc(100% + 8px);
+        min-width: 170px;
+        border-radius: 14px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
     }
 
     .settings-menu-item {
-        padding: 10px 14px;
-        font-size: 0.85rem;
+        padding: 16px 18px;
+        font-size: 0.9rem;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .settings-menu-item:active {
+        background: #e8f5e9;
     }
 }
