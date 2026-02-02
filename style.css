@@ -71,23 +71,21 @@ header h1 {
 .calendar-section {
     background: var(--card-bg);
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
 }
 
-.calendar-header {
+.month-navigator-bottom {
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    padding: 10px 50px 10px 15px;
-    background: #a8e6cf;
-    /* セカンダリミント */
+    gap: 20px;
+    padding: 15px 55px 15px 20px;
+    background: white;
+    border-top: 2px solid var(--primary-color);
+    margin-top: auto;
     position: relative;
-}
-
-.month-navigator {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 0 auto;
 }
 
 .calendar-header h2 {
@@ -372,9 +370,11 @@ select {
 /* 設定メニューコンテナ */
 .settings-menu-container {
     position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 12px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
 }
 
 /* 設定ボタン（アイコン） */
@@ -534,9 +534,13 @@ select {
         gap: 10px;
     }
 
-    .month-navigator {
-        gap: 6px;
-        margin: 0 auto;
+    .month-navigator-bottom {
+        gap: 12px;
+        padding: 12px 50px 12px 15px;
+    }
+
+    .month-navigator-bottom h2 {
+        font-size: 0.95rem;
     }
 
     .calendar-header h2 {
@@ -550,7 +554,7 @@ select {
 
     /* 設定メニュー - モバイル */
     .settings-menu-container {
-        right: 8px;
+        right: 10px;
     }
 
     .btn-settings {

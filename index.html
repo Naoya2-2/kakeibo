@@ -12,19 +12,6 @@
   <div class="container">
     <!-- カレンダーナビゲーション -->
     <section class="calendar-section">
-      <div class="calendar-header">
-        <div class="month-navigator">
-          <button id="prevMonth" class="btn-nav">◀</button>
-          <h2 id="currentMonthDisplay">2026年02月</h2>
-          <button id="nextMonth" class="btn-nav">▶</button>
-        </div>
-        <div class="settings-menu-container">
-          <button id="settingsBtn" class="btn-settings">⚙️</button>
-          <div id="settingsMenu" class="settings-dropdown">
-            <button id="managePaymentMethods" class="settings-menu-item">➕ 支払い方法追加</button>
-          </div>
-        </div>
-      </div>
       <div class="calendar-grid">
         <div class="calendar-day-header">日</div>
         <div class="calendar-day-header">月</div>
@@ -35,6 +22,17 @@
         <div class="calendar-day-header">土</div>
       </div>
       <div id="calendarDays" class="calendar-days"></div>
+      <div class="month-navigator-bottom">
+        <button id="prevMonth" class="btn-nav">◀</button>
+        <h2 id="currentMonthDisplay">2026年02月</h2>
+        <button id="nextMonth" class="btn-nav">▶</button>
+        <div class="settings-menu-container">
+          <button id="settingsBtn" class="btn-settings">⚙️</button>
+          <div id="settingsMenu" class="settings-dropdown">
+            <button id="managePaymentMethods" class="settings-menu-item">➕ 支払い方法追加</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- 月次サマリー -->
