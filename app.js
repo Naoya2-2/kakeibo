@@ -323,8 +323,28 @@ if (addBtn) {
 }
 if (closeModal) closeModal.onclick = () => formModal.classList.remove('active');
 
+// 設定メニュー関連
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsMenu = document.getElementById('settingsMenu');
+
+if (settingsBtn && settingsMenu) {
+    // 設定ボタンクリックでメニュー開閉
+    settingsBtn.onclick = (e) => {
+        e.stopPropagation();
+        settingsMenu.classList.toggle('active');
+    };
+
+    // メニュー外をクリックで閉じる
+    document.addEventListener('click', (e) => {
+        if (!settingsMenu.contains(e.target) && e.target !== settingsBtn) {
+            settingsMenu.classList.remove('active');
+        }
+    });
+}
+
 if (managePaymentMethodsBtn) {
     managePaymentMethodsBtn.onclick = () => {
+        if (settingsMenu) settingsMenu.classList.remove('active');
         renderPaymentMethodList();
         if (paymentModal) paymentModal.classList.add('active');
     };
