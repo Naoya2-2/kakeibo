@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シンプル家計簿</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- カレンダーナビゲーション -->
+    <section class="calendar-section">
+      <div class="calendar-header">
+        <button id="prevMonth" class="btn-nav">◀</button>
+        <h2 id="currentMonthDisplay">2026年02月</h2>
+        <button id="nextMonth" class="btn-nav">▶</button>
+        <button id="managePaymentMethods" class="btn-settings">➕ 支払い方法追加</button>
+      </div>
+      <div class="calendar-grid">
+        <div class="calendar-day-header">日</div>
+        <div class="calendar-day-header">月</div>
+        <div class="calendar-day-header">火</div>
+        <div class="calendar-day-header">水</div>
+        <div class="calendar-day-header">木</div>
+        <div class="calendar-day-header">金</div>
+        <div class="calendar-day-header">土</div>
+      </div>
+      <div id="calendarDays" class="calendar-days"></div>
+    </section>
+
+    <!-- 月次サマリー -->
+    <section class="summary-section">
+      <div id="totalMonthBalanceBox">
+        <span id="monthlyTotal">0</span>円
+      </div>
+      <div class="summary-details">
+        <div class="summary-item">
+          <span class="label">収入</span>
+          <span id="totalIncome" class="amount income">¥0</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">支出</span>
+          <span id="totalExpense" class="amount expense">¥0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 最近の記録 -->
+    <section class="list-section">
+      <div class="list-header">
+        <h3 id="listTitle">本日の記録</h3>
+        <div class="list-actions">
+          <button id="clearData" class="btn-clear" style="margin-right: 5px;">全データ削除</button>
+        </div>
+      </div>
+      <ul id="transactionList" class="transaction-list"></ul>
+    </section>
+
+    <!-- 記録追加FAB -->
+    <button id="addBtn" class="fab">+</button>
+
+    <!-- 記録フォームモーダル -->
+    <div id="formModal" class="modal">
+      <div class="modal-content">
+        <h3>記録を追加</h3>
+        <form id="transactionForm">
+          <div class="form-group">
+            <label>種類</label>
+            <select id="type" required>
+              <option value="expense">支出</option>
+              <option value="income">収入</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>金額</label>
+            <input type="number" id="amount" placeholder="0" required min="1">
+          </div>
+          <div class="form-group">
+            <label>カテゴリ</label>
+            <select id="category" required></select>
+          </div>
+          <div class="form-group">
+            <label>支払い方法</label>
+            <select id="paymentMethod" required></select>
+          </div>
+          <div class="form-group">
+            <label>日付</label>
+            <input type="date" id="date" required>
+          </div>
+          <div class="form-group">
+            <label>メモ</label>
+            <input type="text" id="memo" placeholder="（任意）">
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">記録する</button>
+            <button type="button" id="closeModal" class="btn-close">とじる</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 支払い方法管理モーダル -->
+    <div id="paymentModal" class="modal">
+      <div class="modal-content">
+        <h3>支払い方法を管理</h3>
+        <div class="payment-list" id="paymentList"></div>
+        <div class="form-group">
+          <label>新しい支払い方法</label>
+          <input type="text" id="newPaymentMethod" placeholder="例：楽天カード、PayPay">
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="addPaymentMethod" class="btn-primary">追加</button>
+          <button type="button" id="closePaymentModal" class="btn-close">とじる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
