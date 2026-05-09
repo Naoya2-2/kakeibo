@@ -30,6 +30,11 @@ const addBtn = document.getElementById('addBtn');
 const closeModal = document.getElementById('closeModal');
 const listTitle = document.getElementById('listTitle');
 
+// グラフ関連
+const expenseChartCanvas = document.getElementById('expenseChart');
+const chartLegendEl = document.getElementById('chartLegend');
+let expenseChart = null;
+
 // 支払い方法管理用DOM
 const paymentModal = document.getElementById('paymentModal');
 const managePaymentMethodsBtn = document.getElementById('managePaymentMethods');
@@ -312,6 +317,101 @@ function saveAndRefresh() {
     renderCalendar();
     updateSummary();
     renderTransactions();
+    updateChart();
+}
+
+// グラフの更新
+function updateChart() {
+    if (!expenseChartCanvas) return;
+
+    const year = viewDate.getFullYear();
+    const month = viewDate.getMonth();
+
+    // 月の支出をカテゴリ別に集計
+    const monthlyExpenses = transactions.filter(t => {
+        const d = new Date(t.date);
+        return d.getMonth() === month && d.getFullYear() === year && t.type === 'expense';
+    });
+
+    const categoryTotals = {};
+    monthlyExpenses.forEach(t => {
+        categoryTotals[t.category] = (categoryTotals[t.category] || 0) + t.amount;
+    });
+
+    const categories = Object.keys(categoryTotals);
+    const amounts = Object.values(categoryTotals);
+
+    // カラーパレット
+    const colors = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+        '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF',
+        '#7BC8A4', '#E7E9ED', '#F7464A', '#46BFBD'
+    ];
+
+    // カスタム凡例を生成
+    if (chartLegendEl) {
+        chartLegendEl.innerHTML = '';
+        if (categories.length === 0) {
+            chartLegendEl.innerHTML = '<span class="chart-empty">今月の支出データがありません</span>';
+        } else {
+            categories.forEach((cat, i) => {
+                const item = document.createElement('span');
+                item.className = 'legend-item';
+                item.innerHTML = `
+                    <span class="legend-color" style="background: ${colors[i % colors.length]}"></span>
+                    <span>${cat}: ¥${amounts[i].toLocaleString()}</span>
+                `;
+                chartLegendEl.appendChild(item);
+            });
+        }
+    }
+
+    // グラフの描画または更新
+    if (expenseChart) {
+        expenseChart.destroy();
+    }
+
+    if (categories.length === 0) {
+        // データなしの表示
+        const ctx = expenseChartCanvas.getContext('2d');
+        ctx.clearRect(0, 0, expenseChartCanvas.width, expenseChartCanvas.height);
+        return;
+    }
+
+    const ctx = expenseChartCanvas.getContext('2d');
+    expenseChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: categories,
+            datasets: [{
+                data: amounts,
+                backgroundColor: colors.slice(0, categories.length),
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            cutout: '60%',
+            plugins: {
+                legend: {
+                    display: false  // カスタム凡例を使用
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ¥${value.toLocaleString()} (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // モーダル管理

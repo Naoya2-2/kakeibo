@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>シンプル家計簿</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
@@ -50,6 +51,15 @@
           <span id="totalExpense" class="amount expense">¥0</span>
         </div>
       </div>
+    </section>
+
+    <!-- グラフ表示セクション -->
+    <section class="chart-section">
+      <h3 class="chart-title">月間支出の内訳</h3>
+      <div class="chart-container">
+        <canvas id="expenseChart"></canvas>
+      </div>
+      <div class="chart-legend" id="chartLegend"></div>
     </section>
 
     <!-- 最近の記録 -->
